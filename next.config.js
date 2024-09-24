@@ -8,6 +8,9 @@ await import("./src/env.js");
 const config = {
   typescript: { ignoreBuildErrors: true },
   eslint: { ignoreDuringBuilds: true },
+  images: {
+    domains: ["firebasestorage.googleapis.com"],
+  },
 };
 
 export default config;
