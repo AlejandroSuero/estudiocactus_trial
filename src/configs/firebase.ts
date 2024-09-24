@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { type FirebaseApp, getApp, getApps, initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { env } from "~/env";
 
@@ -11,5 +11,10 @@ const firebaseConfig = {
   appId: env.FIREBASE_APP_ID,
 };
 
-const app = initializeApp(firebaseConfig);
+let app: FirebaseApp;
+if (!getApps().length) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApp();
+}
 export const db = getFirestore(app);
