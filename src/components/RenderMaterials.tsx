@@ -17,7 +17,8 @@ export function RenderMaterials({ materials }: MaterialsProps) {
         height={873}
         priority={true}
         loading="eager"
-        className="absolute left-0 top-0 h-full w-full object-fill"
+        quality={100}
+        className="absolute left-0 top-0 h-full w-full object-contain"
         key={material.id}
       />
     ))
