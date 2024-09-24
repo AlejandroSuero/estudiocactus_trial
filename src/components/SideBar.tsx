@@ -38,7 +38,14 @@ export default function SideBar({ materials }: SideBarProps) {
             onClick={() => handleMaterialClick(material)}
             className="relative flex cursor-pointer items-center space-x-2 rounded-md p-2 text-white hover:bg-gray-400 hover:text-gray-900 focus:outline-none"
           >
-            <Image src={material.materialPreview} alt={material.name} width={48} height={48} className="rounded-md" />
+            <Image
+              src={material.materialPreview}
+              alt={material.name}
+              width={48}
+              height={material.name === "Frame White" ? 99 : 48}
+              loading="lazy"
+              className="h-[48px] w-[48px] rounded-md object-cover"
+            />
             <span className="text-sm font-medium">{material.name}</span>
           </li>
         ))}
