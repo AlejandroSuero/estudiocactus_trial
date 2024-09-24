@@ -4,6 +4,7 @@ import type { Point } from "~/types/collections";
 import { RenderMaterials } from "~/components/RenderMaterials";
 import { BASE_IMAGE_URL } from "~/lib/constants";
 import { RenderPoints } from "~/components/RenderPoints";
+import SideBar from "~/components/SideBar";
 
 export default async function HomePage() {
   const materials = await getMaterials();
@@ -33,8 +34,9 @@ export default async function HomePage() {
           quality={100}
           className="absolute left-0 top-0 h-full w-full object-contain"
         />
-        <RenderMaterials materials={materials} />
+        <RenderMaterials />
         <RenderPoints points={points} />
+        <SideBar materials={materials} />
       </div>
     </main>
   );
