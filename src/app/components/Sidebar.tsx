@@ -57,7 +57,6 @@ function Sidebar({ materials, points }: SidebarProps) {
     } else {
       document.removeEventListener("mousedown", handleOutsideClick);
     }
-    // document.removeEventListener("mousedown", handleOutsideClick);
 
     return () => {
       // Cleanup event listener on unmount
