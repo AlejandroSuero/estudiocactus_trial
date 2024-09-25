@@ -4,6 +4,15 @@ import type { Material, MaterialsByPoint } from "~/types/collections";
 import mockData from "../mocks/mock.json";
 import { env } from "~/env";
 
+function getMockData(collectionName: string) {
+  if (collectionName === "materials") {
+    return mockData.materials;
+  } else if (collectionName === "points") {
+    return mockData.points;
+  }
+  return null;
+}
+
 /**
  * Fetch data from Firestore
  * @param collectionName - Name of the collection to fetch data from
@@ -12,14 +21,7 @@ import { env } from "~/env";
 export async function getCollection(collectionName: string) {
   // If in development mode, fetch data from mock data
   if (env.NODE_ENV === "development") {
-    console.log("Fetching data from Mock Data");
-    if (collectionName === "materials") {
-      return mockData.materials;
-    } else if (collectionName === "points") {
-      return mockData.points;
-    }
-  } else {
-    return null;
+    return getMockData(collectionName);
   }
   // Fetch data from Firestore
   try {
@@ -31,7 +33,7 @@ export async function getCollection(collectionName: string) {
     return data;
   } catch (error) {
     console.error("Error fetching data from Firestore:", error);
-    return null;
+    return getMockData(collectionName);
   }
 }
 
