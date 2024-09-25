@@ -10,16 +10,16 @@ interface SideBarProps {
 export default function SideBar({ materials }: SideBarProps) {
   const isSidebarOpen = useStore((state) => state.isSidebarOpen);
   const selectMaterial = useStore((state) => state.selectMaterial);
-  const selectedPoint = useStore((state) => state.selectedPoint);
+  const activePoint = useStore((state) => state.activePoint);
   const closeSidebar = useStore((state) => state.closeSidebar);
 
   const handleMaterialClick = (material: Material) => {
-    selectMaterial(material);
-    console.log(material);
+    selectMaterial(activePoint?.id ?? "", material);
     closeSidebar();
   };
 
-  const pointId = selectedPoint?.id;
+  const pointId = activePoint?.id;
+
   if (!pointId) return null;
 
   return (

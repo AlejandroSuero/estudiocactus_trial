@@ -9,12 +9,13 @@ interface PointsProps {
 
 export function RenderPoints({ points }: PointsProps) {
   const openSidebar = useStore((state) => state.openSidebar);
-  const selectPoint = useStore((state) => state.selectPoint);
+  const setActivePoint = useStore((state) => state.setActivePoint);
+
   const handlePointClick = (point: Point) => {
-    console.log("clicked");
+    setActivePoint(point);
     openSidebar();
-    selectPoint(point);
   };
+
   return points.map((point) => (
     <div
       className="absolute flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-black/30 object-contain hover:bg-black/50 md:h-10 md:w-10 lg:h-14 lg:w-14 xl:h-16 xl:w-16"
