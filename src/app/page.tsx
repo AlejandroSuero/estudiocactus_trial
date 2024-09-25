@@ -1,21 +1,43 @@
-export default function HomePage() {
+import Image from "next/image";
+import { getCollection, getMaterials } from "~/lib/getData";
+import type { Point } from "~/types/collections";
+import { RenderMaterials } from "~/components/RenderMaterials";
+import { BASE_IMAGE_URL } from "~/lib/constants";
+import { RenderPoints } from "~/components/RenderPoints";
+import SideBar from "~/components/SideBar";
+
+export default async function HomePage() {
+  const materials = await getMaterials();
+  if (!materials) return null;
+  const points = (await getCollection("points")) as Point[];
+  if (!points) return null;
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-4 bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <h1 className="text-6xl font-bold uppercase tracking-tight">
-        Welcome to <span className="text-green-400">Estudio Cactus</span>
-      </h1>
-      <h2 className="text-2xl text-white/80">
-        a{" "}
-        <a
-          href="https://nextjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-green-400 hover:text-green-500 hover:underline hover:underline-offset-4"
-        >
-          Next.js
-        </a>{" "}
-        3D visualizer trial
-      </h2>
+    <main className="flex h-screen w-screen flex-col items-center justify-start md:justify-center xl:justify-center">
+      <Image
+        src={BASE_IMAGE_URL}
+        alt="Base kitchen image"
+        width={1240}
+        height={873}
+        priority={true}
+        loading="eager"
+        quality={100}
+        className="fixed left-0 top-0 h-screen w-screen scale-125 object-cover blur-md brightness-50"
+      />
+      <div className="md:min-w-screen lg:min-w-screen relative min-h-64 min-w-full overflow-hidden md:min-h-screen lg:min-h-screen xl:min-h-[873px] xl:min-w-[1240px]">
+        <Image
+          src={BASE_IMAGE_URL}
+          alt="Base kitchen image"
+          width={1240}
+          height={873}
+          priority={true}
+          loading="eager"
+          quality={100}
+          className="absolute left-0 top-0 h-full w-full object-contain"
+        />
+        <RenderMaterials />
+        <RenderPoints points={points} />
+        <SideBar materials={materials} />
+      </div>
     </main>
   );
 }
