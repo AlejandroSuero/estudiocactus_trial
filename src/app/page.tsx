@@ -1,16 +1,17 @@
 import Image from "next/image";
+import { BASE_IMAGE_URL } from "~/lib/constants";
 import { getCollection, getMaterials } from "~/lib/getData";
 import type { Point } from "~/types/collections";
-import { RenderMaterials } from "~/components/RenderMaterials";
-import { BASE_IMAGE_URL } from "~/lib/constants";
-import { RenderPoints } from "~/components/RenderPoints";
-import SideBar from "~/components/SideBar";
+import { RenderMaterials } from "./components/RenderMaterials";
+import RenderPoints from "./components/RenderPoints";
+import Sidebar from "./components/Sidebar";
 
 export default async function HomePage() {
   const materials = await getMaterials();
-  if (!materials) return null;
+  if (!materials) return <p>Loading materials...</p>;
   const points = (await getCollection("points")) as Point[];
-  if (!points) return null;
+  if (!points) return <p>Loading points...</p>;
+
   return (
     <main className="flex h-screen w-screen flex-col items-center justify-start md:justify-center xl:justify-center">
       <Image
@@ -36,7 +37,7 @@ export default async function HomePage() {
         />
         <RenderMaterials />
         <RenderPoints points={points} />
-        <SideBar materials={materials} />
+        <Sidebar materials={materials} />
       </div>
     </main>
   );
