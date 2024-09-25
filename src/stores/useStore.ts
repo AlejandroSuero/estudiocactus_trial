@@ -3,25 +3,34 @@ import type { Material, Point } from "~/types/collections";
 
 interface MaterialStore {
   isSidebarOpen: boolean;
-  selectedMaterial: Material | null;
-  selectedPoint: Point | null;
+  selectedMaterials: Record<string, Material[]>;
+  activePoint: Point | null;
   toggleSidebar: () => void;
   openSidebar: () => void;
   closeSidebar: () => void;
-  selectMaterial: (material: Material) => void;
-  selectPoint: (point: Point) => void;
+  selectMaterial: (pointId: string, material: Material) => void;
+  setActivePoint: (point: Point) => void;
 }
 
 const useStore = create<MaterialStore>()((set) => ({
   isSidebarOpen: false,
-  selectedMaterial: null,
-  selectedPoint: null,
+  selectedMaterials: {},
+  activePoint: null,
 
   toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
   openSidebar: () => set({ isSidebarOpen: true }),
   closeSidebar: () => set({ isSidebarOpen: false }),
-  selectMaterial: (material: Material) => set({ selectedMaterial: material }),
-  selectPoint: (point: Point) => set({ selectedPoint: point }),
+  setActivePoint: (point: Point) => set({ activePoint: point }),
+  selectMaterial: (pointId: string, material: Material) => {
+    set((state) => {
+      return {
+        selectedMaterials: {
+          ...state.selectedMaterials,
+          [pointId]: [material], // Overwrite the array with the newly selected material for this point
+        },
+      };
+    });
+  },
 }));
 
 export default useStore;
