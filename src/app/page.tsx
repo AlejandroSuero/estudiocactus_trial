@@ -13,7 +13,7 @@ export default async function HomePage() {
   if (!points) return <p>Loading points...</p>;
 
   return (
-    <main className="flex h-screen w-screen flex-col items-center justify-start md:justify-center xl:justify-center">
+    <main className="flex h-screen w-screen flex-col items-center justify-start md:justify-center">
       <Image
         src={BASE_IMAGE_URL}
         alt="Base kitchen image"
@@ -24,7 +24,7 @@ export default async function HomePage() {
         quality={100}
         className="fixed left-0 top-0 h-screen w-screen scale-125 object-cover blur-md brightness-50"
       />
-      <div className="md:min-w-screen lg:min-w-screen relative min-h-64 min-w-full overflow-hidden md:min-h-screen lg:min-h-[873px] xl:min-h-[873px] xl:min-w-[1240px]">
+      <div className="relative aspect-[1.42] w-screen overflow-hidden md:h-auto md:w-screen lg:max-w-[1240px]">
         <Image
           src={BASE_IMAGE_URL}
           alt="Base kitchen image"
@@ -37,7 +37,7 @@ export default async function HomePage() {
         />
         <RenderMaterials />
         <RenderPoints points={points} />
-        <Sidebar materials={materials} />
+        <Sidebar materials={materials} points={points} />
       </div>
     </main>
   );
